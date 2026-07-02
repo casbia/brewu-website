@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BREW U｜Your turn to brew.</title>
+<meta name="description" content="Brew U — 一日店員 × DIY 手作咖啡 × 社群投票。不只是喝一杯咖啡，而是創造一杯屬於你的咖啡。">
+<link rel="icon" href="images/logo.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="nav">
+    <a href="index.html" class="nav-brand">
+      <img src="images/logo.png" alt="Brew U logo">
+      BREW U
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="開啟選單" aria-expanded="false">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" class="active">首頁</a></li>
+      <li><a href="menu.html">菜單</a></li>
+      <li><a href="vote.html">投票</a></li>
+      <li><a href="#reserve">預約 DIY</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div class="container">
+      <img src="images/logo.png" alt="Brew U — 貓咪咖啡杯 Logo" class="hero-logo">
+      <span class="tagline">your turn to brew</span>
+      <h1>以更名作為行動入口，<br>以停留作為核心經驗。</h1>
+      <p class="hero-desc">
+        不只是喝一杯咖啡，而是創造一杯屬於你的咖啡。在 Brew U，你可以親手調配專屬配方、為它命名，
+        再交給大家投票——你的作品，有機會成為下個月的正式菜單。
+      </p>
+      <div class="hero-actions">
+        <a href="#reserve" class="btn btn-primary">預約 DIY 體驗</a>
+        <a href="menu.html" class="btn btn-secondary">查看菜單</a>
+        <a href="vote.html" class="btn btn-ghost">前往投票</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-alt">
+    <div class="container">
+      <span class="section-eyebrow">how it works</span>
+      <h2>體驗流程</h2>
+      <div class="steps">
+        <div class="step"><span class="step-num">01</span><div class="step-title">線上預約</div></div>
+        <span class="step-arrow">→</span>
+        <div class="step"><span class="step-num">02</span><div class="step-title">換裝報到</div></div>
+        <span class="step-arrow">→</span>
+        <div class="step"><span class="step-num">03</span><div class="step-title">調配專屬配方</div></div>
+        <span class="step-arrow">→</span>
+        <div class="step"><span class="step-num">04</span><div class="step-title">命名 + 拍照</div></div>
+        <span class="step-arrow">→</span>
+        <div class="step"><span class="step-num">05</span><div class="step-title">作品上架投票</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="reserve">
+    <div class="container">
+      <span class="section-eyebrow">signature experience</span>
+      <h2>DIY 體驗 SET</h2>
+      <div class="diy-panel">
+        <div>
+          <div class="diy-price">NT$ 380</div>
+          <ul class="diy-list">
+            <li>任選咖啡飲品 1 杯</li>
+            <li>指定甜點 1 份</li>
+            <li>DIY 專屬調飲體驗</li>
+            <li>專屬命名表單</li>
+            <li>一日店員工作證</li>
+            <li>BREW U 圍裙體驗</li>
+            <li>完成作品拍照打卡</li>
+          </ul>
+          <div style="margin-top:22px;">
+            <a href="menu.html#diy" class="btn btn-primary">查看完整菜單</a>
+          </div>
+        </div>
+        <div>
+          <div class="card" style="background:#fff;">
+            <h3>預約表單</h3>
+            <p style="opacity:.75; font-size:.92rem;">選擇日期、時段與人數，送出後將自動回信確認（此區塊為介面示意，尚未串接後台）。</p>
+            <div style="display:grid; gap:12px; margin-top:16px;">
+              <input type="date" style="padding:10px 12px;border-radius:12px;border:2px solid var(--ink);font-family:'Poppins',sans-serif;">
+              <select style="padding:10px 12px;border-radius:12px;border:2px solid var(--ink);font-family:'Poppins',sans-serif;">
+                <option>時段：11:00–12:30</option>
+                <option>時段：14:00–15:30</option>
+                <option>時段：16:00–17:30</option>
+              </select>
+              <select style="padding:10px 12px;border-radius:12px;border:2px solid var(--ink);font-family:'Poppins',sans-serif;">
+                <option>人數：1 人</option>
+                <option>人數：2 人</option>
+                <option>人數：3–4 人</option>
+              </select>
+              <button type="button" class="btn btn-secondary" onclick="alert('這裡之後可串接實際預約系統／表單服務（例如 Google 表單、Calendly 等）。')">送出預約</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-alt">
+    <div class="container">
+      <span class="section-eyebrow">why brew u</span>
+      <h2>不只是消費者，是共同創作者</h2>
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>共創</h3>
+          <p>每一杯配方都由顧客親手調製，你不是在「點餐」，是在「創作」。</p>
+        </div>
+        <div class="card">
+          <h3>獨特</h3>
+          <p>命名、比例、搭配全部由你決定，這杯咖啡只此一份，全世界找不到第二杯。</p>
+        </div>
+        <div class="card">
+          <h3>連結</h3>
+          <p>作品上架投票，前五名下月登上正式菜單，保留你的名字與配方比例。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container" style="text-align:center;">
+      <span class="section-eyebrow">follow along</span>
+      <h2>追蹤我們，看更多每日限定與投票倒數</h2>
+      <p style="max-width:520px;margin:0 auto 24px;opacity:.8;">Instagram 每週更新體驗花絮、投票公告與得獎揭曉，別錯過你的一票。</p>
+      <a href="#" class="btn btn-primary">前往 Instagram @brewu.coffee</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">BREW U</div>
+        <p class="tagline" style="color:var(--gold);">your turn to brew</p>
+      </div>
+      <div>
+        <h3 style="color:var(--cream-soft);font-size:1rem;">快速連結</h3>
+        <p><a href="menu.html">菜單</a><br><a href="vote.html">本月投票</a><br><a href="#reserve">預約 DIY 體驗</a></p>
+      </div>
+      <div>
+        <h3 style="color:var(--cream-soft);font-size:1rem;">聯絡我們</h3>
+        <p>台北市 ｜ 營業時間 11:00–19:00<br>IG @brewu.coffee</p>
+      </div>
+    </div>
+    <p class="footer-note">© 2026 Brew U. 品牌提案示意網站，非正式營運資訊。</p>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
