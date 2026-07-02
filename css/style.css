@@ -8,7 +8,560 @@
   --blue-light: #b6d5f0;
   --blue: #4289c9;
   --ink: #2b1608;
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Chiron+Sans+HK:wght@600;700;800&family=Poppins:wght@400;500;600;700&display=swap');
 
+:root {
+  --cream: #f9edd2;
+  --cream-soft: #fbf3e0;
+  --gold: #e5b860;
+  --brown: #8a1700;
+  --blue-light: #b6d5f0;
+  --blue: #4289c9;
+  --ink: #2b1608;
+
+  --radius-blob: 28px 32px 24px 30px;
+  --radius-card: 22px;
+  --border-hand: 3px solid var(--ink);
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Baloo 2', 'Chiron Sans HK', sans-serif;
+  color: var(--brown);
+  margin: 0 0 0.4em;
+  line-height: 1.2;
+}
+
+h1 { font-size: clamp(2.4rem, 5vw, 4rem); }
+h2 { font-size: clamp(1.8rem, 3.4vw, 2.6rem); }
+h3 { font-size: 1.35rem; }
+
+p { margin: 0 0 1em; }
+
+a { color: inherit; text-decoration: none; }
+
+.tagline {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--blue);
+  font-size: 0.95rem;
+  display: inline-block;
+}
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ---------- Focus visibility ---------- */
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 3px;
+}
+
+/* ---------- Navigation ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--cream);
+  border-bottom: var(--border-hand);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Baloo 2', 'Chiron Sans HK', sans-serif;
+  font-weight: 800;
+  font-size: 1.3rem;
+  color: var(--brown);
+}
+
+.nav-brand img {
+  height: 44px;
+  width: auto;
+  display: block;
+}
+
+.nav-links {
+  display: flex;
+  gap: 6px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  background: var(--blue);
+  color: var(--cream-soft);
+}
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: var(--border-hand);
+  border-radius: 12px;
+  padding: 6px 10px;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+@media (max-width: 720px) {
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--cream);
+    flex-direction: column;
+    border-bottom: var(--border-hand);
+    padding: 10px 24px 16px;
+    display: none;
+  }
+  .nav-links.open { display: flex; }
+  .nav-toggle { display: block; }
+  .nav-links a { padding: 10px 14px; }
+}
+
+/* ---------- Steam motif divider (signature element) ---------- */
+.steam-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 8px 0 36px;
+  color: var(--brown);
+}
+.steam-divider::before,
+.steam-divider::after {
+  content: "";
+  height: 2px;
+  width: 56px;
+  background: var(--brown);
+  opacity: 0.35;
+  border-radius: 2px;
+}
+.steam-divider svg { width: 30px; height: 30px; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: 'Baloo 2', 'Chiron Sans HK', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 13px 28px;
+  border-radius: 999px;
+  border: var(--border-hand);
+  cursor: pointer;
+  transition: transform 0.12s ease, opacity 0.12s ease;
+}
+.btn:hover { transform: translateY(-2px); opacity: 0.92; }
+.btn:active { transform: translateY(0); opacity: 1; }
+
+.btn-primary { background: var(--blue); color: #fff; }
+.btn-secondary { background: var(--gold); color: var(--ink); }
+.btn-ghost { background: var(--cream-soft); color: var(--brown); }
+
+/* ---------- Hero ---------- */
+.hero {
+  padding: 64px 0 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-logo {
+  width: 200px;
+  height: auto;
+  margin: 0 auto 18px;
+  display: block;
+}
+
+.hero .tagline { font-size: 1.05rem; margin-bottom: 6px; }
+
+.hero-desc {
+  max-width: 560px;
+  margin: 18px auto 30px;
+  color: var(--ink);
+  opacity: 0.85;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ---------- Sections ---------- */
+section { padding: 56px 0; }
+.section-eyebrow {
+  font-family: 'Poppins', sans-serif;
+  color: var(--blue);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.section-alt {
+  background: var(--cream-soft);
+  border-top: var(--border-hand);
+  border-bottom: var(--border-hand);
+}
+
+/* ---------- Grid / Cards ---------- */
+.grid {
+  display: grid;
+  gap: 22px;
+}
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+
+@media (max-width: 800px) {
+  .grid-3, .grid-2 { grid-template-columns: 1fr; }
+}
+
+.card {
+  background: #fff;
+  border: var(--border-hand);
+  border-radius: var(--radius-blob);
+  padding: 24px;
+}
+
+.card-icon {
+  width: 52px;
+  height: 52px;
+  margin-bottom: 12px;
+}
+
+/* ---------- Steps (process) ---------- */
+.steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+}
+.step {
+  flex: 1 1 140px;
+  max-width: 170px;
+  text-align: center;
+  background: #fff;
+  border: var(--border-hand);
+  border-radius: var(--radius-card);
+  padding: 18px 14px;
+}
+.step-num {
+  font-family: 'Baloo 2', 'Chiron Sans HK', sans-serif;
+  font-weight: 800;
+  color: var(--blue);
+  font-size: 1.6rem;
+  display: block;
+}
+.step-title { font-weight: 700; margin-top: 4px; color: var(--brown); }
+.step-arrow {
+  align-self: center;
+  color: var(--brown);
+  font-size: 1.4rem;
+  opacity: 0.5;
+}
+
+/* ---------- DIY set highlight ---------- */
+.diy-panel {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 30px;
+  align-items: center;
+  background: var(--blue-light);
+  border: var(--border-hand);
+  border-radius: var(--radius-blob);
+  padding: 32px;
+}
+@media (max-width: 800px) {
+  .diy-panel { grid-template-columns: 1fr; }
+}
+.diy-price {
+  font-family: 'Baloo 2', 'Chiron Sans HK', sans-serif;
+  font-weight: 800;
+  font-size: 2.2rem;
+  color: var(--brown);
+}
+.diy-list {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+}
+.diy-list li {
+  padding: 6px 0 6px 30px;
+  position: relative;
+  font-weight: 500;
+}
+.diy-list li::before {
+  content: "☕";
+  position: absolute;
+  left: 0;
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  background: var(--brown);
+  color: var(--cream-soft);
+  padding: 40px 0 24px;
+  margin-top: 40px;
+}
+.site-footer a { opacity: 0.9; }
+.site-footer a:hover { opacity: 1; text-decoration: underline; }
+.footer-grid {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+.footer-brand {
+  font-family: 'Baloo 2', 'Chiron Sans HK', sans-serif;
+  font-weight: 800;
+  font-size: 1.3rem;
+}
+.footer-note {
+  font-size: 0.85rem;
+  opacity: 0.7;
+  border-top: 1px solid rgba(249,237,210,0.25);
+  padding-top: 16px;
+}
+
+/* ---------- Menu page ---------- */
+.menu-category { margin-bottom: 52px; }
+.menu-category-title {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.menu-category-title .en { font-size: 1rem; color: var(--blue); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  padding: 14px 4px;
+  border-bottom: 1px dashed rgba(138,23,0,0.3);
+}
+.menu-item:last-child { border-bottom: none; }
+.menu-item-name { font-weight: 600; color: var(--ink); }
+.menu-item-en { font-size: 0.82rem; color: var(--blue); display: block; font-weight: 600; }
+.menu-item-price {
+  font-family: 'Baloo 2', 'Chiron Sans HK', sans-serif;
+  font-weight: 700;
+  color: var(--brown);
+  white-space: nowrap;
+}
+
+.special-card {
+  background: #fff;
+  border: var(--border-hand);
+  border-radius: var(--radius-card);
+  padding: 18px 20px;
+  position: relative;
+}
+.special-badge {
+  position: absolute;
+  top: -12px;
+  right: 16px;
+  background: var(--gold);
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  padding: 3px 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  font-family: 'Baloo 2', 'Chiron Sans HK', sans-serif;
+}
+.special-name { font-family: 'Baloo 2', 'Chiron Sans HK', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--brown); margin-bottom: 4px; }
+.special-combo { color: var(--ink); opacity: 0.8; font-size: 0.92rem; margin-bottom: 8px; }
+.special-price { font-family: 'Baloo 2', 'Chiron Sans HK', sans-serif; font-weight: 800; color: var(--blue); }
+
+.addon-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+.addon-list li {
+  background: var(--cream-soft);
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  padding: 10px 16px;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+}
+
+/* ---------- Vote page ---------- */
+.vote-rules {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+@media (max-width: 800px) { .vote-rules { grid-template-columns: 1fr; } }
+
+.rule-card {
+  border-radius: var(--radius-card);
+  border: var(--border-hand);
+  padding: 22px;
+}
+.rule-card.online { background: var(--blue-light); }
+.rule-card.instore { background: var(--gold); }
+.rule-card .rule-votes {
+  font-family: 'Baloo 2', 'Chiron Sans HK', sans-serif;
+  font-weight: 800;
+  font-size: 2rem;
+  color: var(--brown);
+}
+
+.login-box {
+  max-width: 420px;
+  margin: 0 auto 40px;
+  background: #fff;
+  border: var(--border-hand);
+  border-radius: var(--radius-card);
+  padding: 24px;
+  text-align: center;
+}
+.login-box input {
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: 12px;
+  border: 2px solid var(--ink);
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  margin: 12px 0;
+}
+.login-status {
+  font-weight: 600;
+  color: var(--brown);
+}
+
+.vote-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 22px;
+}
+
+.vote-card {
+  background: #fff;
+  border: var(--border-hand);
+  border-radius: var(--radius-blob);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.vote-card-photo {
+  width: 100%;
+  height: 130px;
+  border-radius: 16px;
+  border: 2px solid var(--ink);
+  background: linear-gradient(135deg, var(--blue-light), var(--cream-soft));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+}
+.vote-card-name { font-family: 'Baloo 2', 'Chiron Sans HK', sans-serif; font-weight: 700; color: var(--brown); font-size: 1.15rem; }
+.vote-card-combo { font-size: 0.88rem; opacity: 0.8; }
+.vote-card-creator { font-size: 0.82rem; color: var(--blue); font-weight: 600; }
+.vote-card-count {
+  font-family: 'Baloo 2', 'Chiron Sans HK', sans-serif;
+  font-weight: 700;
+  color: var(--ink);
+  margin-top: auto;
+}
+.vote-card-btn {
+  margin-top: 8px;
+  width: 100%;
+}
+.vote-card-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.ad-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(43,22,8,0.55);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 20px;
+}
+.ad-modal-backdrop.open { display: flex; }
+.ad-modal {
+  background: var(--cream);
+  border: var(--border-hand);
+  border-radius: var(--radius-blob);
+  padding: 30px;
+  max-width: 340px;
+  text-align: center;
+}
+.ad-modal-timer {
+  font-family: 'Baloo 2', 'Chiron Sans HK', sans-serif;
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--blue);
+  margin: 14px 0;
+}
+
+.instore-note {
+  text-align: center;
+  max-width: 480px;
+  margin: 30px auto 0;
+  font-size: 0.9rem;
+  opacity: 0.75;
+}
   --radius-blob: 28px 32px 24px 30px;
   --radius-card: 22px;
   --border-hand: 3px solid var(--ink);
