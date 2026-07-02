@@ -86,7 +86,8 @@
         <div>
           <div class="card" style="background:#fff;">
             <h3>預約表單</h3>
-            <p style="opacity:.75; font-size:.92rem;">選擇日期、時段與人數，送出後將自動回信確認（此區塊為介面示意，尚未串接後台）。</p>
+            <p style="opacity:.75; font-size:.92rem;">選擇日期、時段與人數，送出後將自動回信確認。</p>
+            <!-- 此區塊為介面示意，尚未串接後台。正式版可接 Google 表單、Calendly 或自建預約系統。 -->
             <div style="display:grid; gap:12px; margin-top:16px;">
               <input type="date" style="padding:10px 12px;border-radius:12px;border:2px solid var(--ink);font-family:'Poppins',sans-serif;">
               <select style="padding:10px 12px;border-radius:12px;border:2px solid var(--ink);font-family:'Poppins',sans-serif;">
@@ -99,7 +100,8 @@
                 <option>人數：2 人</option>
                 <option>人數：3–4 人</option>
               </select>
-              <button type="button" class="btn btn-secondary" onclick="alert('這裡之後可串接實際預約系統／表單服務（例如 Google 表單、Calendly 等）。')">送出預約</button>
+              <!-- onclick 的成功訊息為示意用假回饋，正式版請改為呼叫真正的預約 API -->
+              <button type="button" class="btn btn-secondary" onclick="alert('已送出預約，我們將盡快與你確認！')">送出預約</button>
             </div>
           </div>
         </div>
@@ -133,7 +135,7 @@
       <span class="section-eyebrow">follow along</span>
       <h2>追蹤我們，看更多每日限定與投票倒數</h2>
       <p style="max-width:520px;margin:0 auto 24px;opacity:.8;">Instagram 每週更新體驗花絮、投票公告與得獎揭曉，別錯過你的一票。</p>
-      <a href="#" class="btn btn-primary">前往 Instagram @brewu.coffee</a>
+      <a href="#" class="btn btn-primary">前往 Instagram @brew.u.coffee</a>
     </div>
   </section>
 
@@ -152,7 +154,7 @@
       </div>
       <div>
         <h3 style="color:var(--cream-soft);font-size:1rem;">聯絡我們</h3>
-        <p>台北市 ｜ 營業時間 11:00–19:00<br>IG @brewu.coffee</p>
+        <p>台北市 ｜ 營業時間 11:00–19:00<br>IG @brew.u.coffee</p>
       </div>
     </div>
     <p class="footer-note">© 2026 Brew U. 品牌提案示意網站，非正式營運資訊。</p>
