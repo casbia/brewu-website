@@ -1,199 +1,121 @@
-<!DOCTYPE html>
-<html lang="zh-Hant">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>本月投票｜BREW U</title>
-<link rel="icon" href="images/logo.png">
-<link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+// ------------------------------------------------------------------
+// Brew U 投票頁 — 前端介面示範
+// 注意：這裡的票數／登入狀態只存在使用者自己瀏覽器的 localStorage，
+// 沒有串接真正的後台資料庫，重新整理／換裝置後票數不會同步。
+// 正式上線時，這段邏輯需要換成呼叫真正的會員系統 + 投票 API。
+// ------------------------------------------------------------------
 
-<header class="site-header">
-  <nav class="nav">
-    <a href="index.html" class="nav-brand">
-      <img src="images/logo.png" alt="Brew U logo">
-      BREW U
-    </a>
-    <button class="nav-toggle" id="navToggle" aria-label="開啟選單" aria-expanded="false">☰</button>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="index.html">首頁</a></li>
-      <li><a href="menu.html">菜單</a></li>
-      <li><a href="vote.html" class="active">投票</a></li>
-      <li><a href="index.html#experiences">體驗方案</a></li>
-      <li><a href="merch.html">周邊預購</a></li>
-      <li><a href="index.html#reserve">預約 DIY</a></li>
-    </ul>
-  </nav>
-</header>
+const CANDIDATES = [
+  { id: 'jay',    name: '周杰倫套餐',     combo: '焦糖拿鐵 ＋ 可麗露', creator: '@lulu_coffee', emoji: '🎤' },
+  { id: 'tnua',   name: '我愛北藝套餐',   combo: '抹茶拿鐵 ＋ 軟餅乾', creator: '@tnua_life',   emoji: '🎨' },
+  { id: 'allnighter', name: '熬夜趕作業套餐', combo: 'Cold Brew ＋ 布朗尼', creator: '@deadline.kiki', emoji: '📚' },
+  { id: 'offday', name: '今天不想上班套餐', combo: '榛果拿鐵 ＋ 瑪德蓮', creator: '@mon.blue',    emoji: '😮‍💨' },
+  { id: 'cat',    name: '貓咪店長推薦套餐', combo: '手沖單品 ＋ 可麗露', creator: '@brewu_cat',   emoji: '🐾' },
+];
 
-<main>
+const BASE_VOTES = { jay: 128, tnua: 96, allnighter: 141, offday: 74, cat: 110 };
 
-  <section class="hero" style="padding-bottom:20px;">
-    <div class="container">
-      <span class="tagline">your turn to vote</span>
-      <h1>本月投票</h1>
-      <p class="hero-desc">幫你喜歡的配方投一票，前五名將在下個月正式登上菜單，保留創作者的名字與比例。</p>
-    </div>
-  </section>
+const el = (id) => document.getElementById(id);
 
-  <section style="padding-top:0;">
-    <div class="container">
-      <div class="vote-rules">
-        <div class="rule-card online">
-          <h3 style="margin-top:0;">線上投票</h3>
-          <div class="rule-votes">1 票 / 日</div>
-          <p style="margin:6px 0 0;font-size:.9rem;">登入會員帳號，看一段短廣告即可獲得今日 1 票。</p>
-        </div>
-        <div class="rule-card instore">
-          <h3 style="margin-top:0;">實體投票</h3>
-          <div class="rule-votes">2 票 / 日</div>
-          <p style="margin:6px 0 0;font-size:.9rem;">到店消費即可在現場票箱／掃碼投 2 票，同步計入總票數。</p>
-        </div>
-      </div>
-    </div>
-  </section>
+function getUser() {
+  return localStorage.getItem('brewu_user') || '';
+}
+function setUser(name) {
+  localStorage.setItem('brewu_user', name);
+}
+function todayKey() {
+  return new Date().toISOString().slice(0, 10);
+}
+function hasVotedToday(user) {
+  return localStorage.getItem('brewu_vote_' + user + '_' + todayKey()) || null;
+}
+function markVotedToday(user, candidateId) {
+  localStorage.setItem('brewu_vote_' + user + '_' + todayKey(), candidateId);
+}
+function getVoteCounts() {
+  const stored = localStorage.getItem('brewu_vote_counts');
+  return stored ? JSON.parse(stored) : { ...BASE_VOTES };
+}
+function saveVoteCounts(counts) {
+  localStorage.setItem('brewu_vote_counts', JSON.stringify(counts));
+}
 
-  <section class="section-alt">
-    <div class="container">
+function renderLogin() {
+  const user = getUser();
+  el('loginStatus').textContent = user ? `目前登入：${user}` : '尚未登入';
+  el('nameInput').value = user || '';
+}
 
-      <!-- 此區塊為前端介面示意，正式版需串接真正的會員系統 -->
-      <div class="login-box" id="loginBox">
-        <h3 style="margin-top:0;">會員登入</h3>
-        <p class="login-status" id="loginStatus">尚未登入</p>
-        <input type="text" id="nameInput" placeholder="輸入你的暱稱即可登入">
-        <button type="button" class="btn btn-primary" id="loginBtn" style="width:100%;">登入 / 切換帳號</button>
-      </div>
+function renderCandidates() {
+  const user = getUser();
+  const votedId = user ? hasVotedToday(user) : null;
+  const counts = getVoteCounts();
+  const grid = el('voteGrid');
+  grid.innerHTML = '';
 
-      <div style="text-align:center;margin-bottom:30px;">
-        <span class="section-eyebrow">this month's candidates</span>
-        <h2 style="margin-top:0;">本月參賽配方</h2>
-      </div>
+  CANDIDATES.forEach((c) => {
+    const card = document.createElement('div');
+    card.className = 'vote-card';
 
-      <div class="vote-grid" id="voteGrid"></div>
+    const alreadyVotedThis = votedId === c.id;
+    const disabled = !user || !!votedId;
 
-      <p class="instore-note">已經到店消費了嗎？把你的發票／訂單編號交給店員，即可現場再投 2 票，公正性由實體票箱同步把關。</p>
-    </div>
-  </section>
+    card.innerHTML = `
+      <div class="vote-card-photo">${c.emoji}</div>
+      <div class="vote-card-name">${c.name}</div>
+      <div class="vote-card-combo">${c.combo}</div>
+      <div class="vote-card-creator">創作者 ${c.creator}</div>
+      <div class="vote-card-count">${counts[c.id]} 票</div>
+      <button type="button" class="btn ${alreadyVotedThis ? 'btn-secondary' : 'btn-primary'} vote-card-btn" data-id="${c.id}" ${disabled ? 'disabled' : ''}>
+        ${alreadyVotedThis ? '✓ 今日已投給這款' : (!user ? '請先登入' : (votedId ? '今日票數已用完' : '看廣告投 1 票'))}
+      </button>
+    `;
+    grid.appendChild(card);
+  });
 
-  <section>
-    <div class="container">
-      <div style="text-align:center;margin-bottom:28px;">
-        <span class="section-eyebrow">hall of fame</span>
-        <h2 style="margin-top:0;">顧客創作精選</h2>
-        <p style="opacity:.75;max-width:520px;margin:0 auto;">來看看以前的一日店員都做出了什麼作品，也許能給你一點命名靈感。</p>
-      </div>
+  grid.querySelectorAll('button[data-id]').forEach((btn) => {
+    btn.addEventListener('click', () => openAdModal(btn.getAttribute('data-id')));
+  });
+}
 
-      <div class="showcase-grid">
+function openAdModal(candidateId) {
+  const user = getUser();
+  if (!user) return;
+  const candidate = CANDIDATES.find((c) => c.id === candidateId);
+  el('adCandidateName').textContent = candidate ? `${candidate.name}（${candidate.combo}）` : '';
+  el('adModal').classList.add('open');
 
-        <div class="showcase-card">
-          <div class="img-frame">
-            <img src="images/showcase-01.png" alt="貓咪拿鐵"
-                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-            <div class="img-fallback"><span class="fallback-icon">🖼️</span><span>作品照片</span><code>images/showcase-01.png</code></div>
-          </div>
-          <div class="showcase-name">貓咪拿鐵</div>
-          <div class="showcase-creator">@miao_life</div>
-        </div>
+  let seconds = 5;
+  el('adTimer').textContent = seconds;
+  const timer = setInterval(() => {
+    seconds -= 1;
+    el('adTimer').textContent = seconds > 0 ? seconds : '✓';
+    if (seconds <= 0) {
+      clearInterval(timer);
+      const counts = getVoteCounts();
+      counts[candidateId] = (counts[candidateId] || 0) + 1;
+      saveVoteCounts(counts);
+      markVotedToday(user, candidateId);
+      setTimeout(() => {
+        el('adModal').classList.remove('open');
+        renderCandidates();
+      }, 500);
+    }
+  }, 1000);
+}
 
-        <div class="showcase-card">
-          <div class="img-frame">
-            <img src="images/showcase-02.png" alt="雨天限定摩卡"
-                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-            <div class="img-fallback"><span class="fallback-icon">🖼️</span><span>作品照片</span><code>images/showcase-02.png</code></div>
-          </div>
-          <div class="showcase-name">雨天限定摩卡</div>
-          <div class="showcase-creator">@rainydayer</div>
-        </div>
+document.addEventListener('DOMContentLoaded', function () {
+  renderLogin();
+  renderCandidates();
 
-        <div class="showcase-card">
-          <div class="img-frame">
-            <img src="images/showcase-03.png" alt="深夜讀書會特調"
-                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-            <div class="img-fallback"><span class="fallback-icon">🖼️</span><span>作品照片</span><code>images/showcase-03.png</code></div>
-          </div>
-          <div class="showcase-name">深夜讀書會特調</div>
-          <div class="showcase-creator">@booknerd.tea</div>
-        </div>
-
-        <div class="showcase-card">
-          <div class="img-frame">
-            <img src="images/showcase-04.png" alt="陽光早餐拿鐵"
-                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-            <div class="img-fallback"><span class="fallback-icon">🖼️</span><span>作品照片</span><code>images/showcase-04.png</code></div>
-          </div>
-          <div class="showcase-name">陽光早餐拿鐵</div>
-          <div class="showcase-creator">@morning.lu</div>
-        </div>
-
-        <div class="showcase-card">
-          <div class="img-frame">
-            <img src="images/showcase-05.png" alt="畢業季紀念特調"
-                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-            <div class="img-fallback"><span class="fallback-icon">🖼️</span><span>作品照片</span><code>images/showcase-05.png</code></div>
-          </div>
-          <div class="showcase-name">畢業季紀念特調</div>
-          <div class="showcase-creator">@senior_2025</div>
-        </div>
-
-        <div class="showcase-card">
-          <div class="img-frame">
-            <img src="images/showcase-06.png" alt="貓爪印可可"
-                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-            <div class="img-fallback"><span class="fallback-icon">🖼️</span><span>作品照片</span><code>images/showcase-06.png</code></div>
-          </div>
-          <div class="showcase-name">貓爪印可可</div>
-          <div class="showcase-creator">@pawlover88</div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <section class="section-alt">
-    <div class="container">
-      <div class="steam-divider">
-        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 30c0-6 6-6 6-12s-6-6-6-12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M24 30c0-6 6-6 6-12s-6-6-6-12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
-      </div>
-      <div style="text-align:center;max-width:520px;margin:0 auto;">
-        <h2>投票流程</h2>
-        <p style="opacity:.8;">月初開放投票 → 每日投票（線上 1 票／實體 2 票）→ 月底截止 → 公布前五名（IG＋官網同步）→ 下月 1 號正式上架，保留創作者原始命名與配方比例。</p>
-      </div>
-    </div>
-  </section>
-
-</main>
-
-<!-- 示意用倒數計時，正式版可串接真正的廣告 SDK -->
-<div class="ad-modal-backdrop" id="adModal">
-  <div class="ad-modal">
-    <h3 style="margin-top:0;">感謝觀看廣告</h3>
-    <p style="opacity:.75;font-size:.9rem;">今日 1 票即將發放給：<br><strong id="adCandidateName"></strong></p>
-    <div class="ad-modal-timer" id="adTimer">5</div>
-  </div>
-</div>
-
-<footer class="site-footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <div class="footer-brand">BREW U</div>
-        <p class="tagline" style="color:var(--gold);">your turn to brew</p>
-      </div>
-      <div>
-        <h3 style="color:var(--cream-soft);font-size:1rem;">快速連結</h3>
-        <p><a href="index.html">首頁</a><br><a href="menu.html">菜單</a><br><a href="merch.html">周邊預購</a><br><a href="index.html#reserve">預約 DIY 體驗</a></p>
-      </div>
-      <div>
-        <h3 style="color:var(--cream-soft);font-size:1rem;">聯絡我們</h3>
-        <p>台北市中山區喵喵路67號<br>(09) 6767-676<br>IG @brew.u.coffee<br>營業時間 11:00–19:00</p>
-      </div>
-    </div>
-    <p class="footer-note">© 2026 Brew U. 品牌提案示意網站，非正式營運資訊。</p>
-  </div>
-</footer>
-
-<script src="js/main.js"></script>
-<script src="js/vote.js"></script>
-</body>
-</html>
+  el('loginBtn').addEventListener('click', () => {
+    const name = el('nameInput').value.trim();
+    if (!name) {
+      alert('請先輸入暱稱再登入。');
+      return;
+    }
+    setUser(name);
+    renderLogin();
+    renderCandidates();
+  });
+});
