@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>周邊商品預購｜BREW U</title>
+<link rel="icon" href="images/logo.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="nav">
+    <a href="index.html" class="nav-brand">
+      <img src="images/logo.png" alt="Brew U logo">
+      BREW U
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="開啟選單" aria-expanded="false">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">首頁</a></li>
+      <li><a href="menu.html">菜單</a></li>
+      <li><a href="vote.html">投票</a></li>
+      <li><a href="index.html#experiences">體驗方案</a></li>
+      <li><a href="merch.html" class="active">周邊預購</a></li>
+      <li><a href="index.html#reserve">預約 DIY</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+
+  <section class="hero" style="padding-bottom:10px;">
+    <div class="container">
+      <span class="tagline">limited pre-order · 店取限定</span>
+      <h1>周邊商品預購</h1>
+    </div>
+  </section>
+
+  <section style="padding-top:0;">
+    <div class="container">
+
+      <div class="img-frame wide" style="margin-bottom:24px;">
+        <img src="images/merch-overview.png" alt="Brew U 周邊商品總覽"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="img-fallback">
+          <span class="fallback-icon">🖼️</span>
+          <span>周邊總覽圖</span>
+          <code>images/merch-overview.png</code>
+        </div>
+      </div>
+
+      <div class="merch-note">
+        限量加價購，恕不寄送，僅限到店取貨。加價購資格：單筆消費滿 NT$300 即可加購 1 項周邊（每張收據限加購 2 件），數量有限、售完為止。
+      </div>
+
+      <div class="merch-grid">
+
+        <div class="merch-card">
+          <span class="merch-limited">限量 50 份</span>
+          <div class="img-frame">
+            <img src="images/merch-bottle.png" alt="BREW U 保溫瓶"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <div class="img-fallback">
+              <span class="fallback-icon">🖼️</span>
+              <span>保溫瓶照片</span>
+              <code>images/merch-bottle.png</code>
+            </div>
+          </div>
+          <div class="merch-name">BREW U 保溫瓶 400ml</div>
+          <div class="merch-price-row">
+            <span class="merch-price-old">NT$590</span>
+            <span class="merch-price-now">NT$390</span>
+          </div>
+        </div>
+
+        <div class="merch-card">
+          <span class="merch-limited">限量 80 份</span>
+          <div class="img-frame">
+            <img src="images/merch-tote.png" alt="BREW U 帆布提袋"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <div class="img-fallback">
+              <span class="fallback-icon">🖼️</span>
+              <span>提袋照片</span>
+              <code>images/merch-tote.png</code>
+            </div>
+          </div>
+          <div class="merch-name">帆布提袋</div>
+          <div class="merch-price-row">
+            <span class="merch-price-old">NT$220</span>
+            <span class="merch-price-now">NT$150</span>
+          </div>
+        </div>
+
+        <div class="merch-card">
+          <span class="merch-limited">限量 100 份</span>
+          <div class="img-frame">
+            <img src="images/merch-notepad.png" alt="BREW U 便條紙組"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <div class="img-fallback">
+              <span class="fallback-icon">🖼️</span>
+              <span>便條紙照片</span>
+              <code>images/merch-notepad.png</code>
+            </div>
+          </div>
+          <div class="merch-name">手繪便條紙組</div>
+          <div class="merch-price-row">
+            <span class="merch-price-old">NT$120</span>
+            <span class="merch-price-now">NT$80</span>
+          </div>
+        </div>
+
+        <div class="merch-card">
+          <span class="merch-limited">限量 60 份</span>
+          <div class="img-frame">
+            <img src="images/merch-charm.png" alt="BREW U 貓咪吊飾"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <div class="img-fallback">
+              <span class="fallback-icon">🖼️</span>
+              <span>吊飾照片</span>
+              <code>images/merch-charm.png</code>
+            </div>
+          </div>
+          <div class="merch-name">貓咪吊飾</div>
+          <div class="merch-price-row">
+            <span class="merch-price-old">NT$180</span>
+            <span class="merch-price-now">NT$120</span>
+          </div>
+        </div>
+
+        <div class="merch-card coming-soon">
+          <div class="img-frame">🐾</div>
+          <div class="merch-name">敬請期待</div>
+          <p style="font-size:.85rem;opacity:.75;margin:4px 0 0;">下一款周邊正在準備中，關注 IG 搶先看</p>
+        </div>
+
+      </div>
+
+      <!-- 以下預購表單為前端介面示意，尚未串接後台；正式版需接單、扣庫存並發送取貨通知 -->
+      <div class="merch-form">
+        <h3>周邊預購表單</h3>
+        <p style="opacity:.75;font-size:.9rem;margin-top:-6px;">預購成立後請於指定時段到店取貨並完成加購付款，逾期未取視為放棄。</p>
+
+        <div class="form-row">
+          <label>選擇商品（可複選）</label>
+          <div class="checkbox-group">
+            <label><input type="checkbox"> 保溫瓶</label>
+            <label><input type="checkbox"> 提袋</label>
+            <label><input type="checkbox"> 便條紙</label>
+            <label><input type="checkbox"> 吊飾</label>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label for="merchDate">取貨日期</label>
+          <input type="date" id="merchDate">
+        </div>
+
+        <div class="form-row">
+          <label for="merchTime">取貨時段</label>
+          <select id="merchTime">
+            <option>11:00–13:00</option>
+            <option>13:00–15:00</option>
+            <option>15:00–17:00</option>
+            <option>17:00–19:00</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <label for="merchName">姓名</label>
+          <input type="text" id="merchName" placeholder="訂購人姓名">
+        </div>
+
+        <div class="form-row">
+          <label for="merchPhone">聯絡電話</label>
+          <input type="tel" id="merchPhone" placeholder="方便聯絡的手機號碼">
+        </div>
+
+        <button type="button" class="btn btn-primary" style="width:100%;"
+                onclick="alert('已收到你的預購！請於選定時段攜帶此頁面畫面到店取貨並完成加購付款。')">
+          送出預購
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">BREW U</div>
+        <p class="tagline" style="color:var(--gold);">your turn to brew</p>
+      </div>
+      <div>
+        <h3 style="color:var(--cream-soft);font-size:1rem;">快速連結</h3>
+        <p><a href="index.html">首頁</a><br><a href="menu.html">菜單</a><br><a href="vote.html">本月投票</a><br><a href="index.html#reserve">預約 DIY 體驗</a></p>
+      </div>
+      <div>
+        <h3 style="color:var(--cream-soft);font-size:1rem;">聯絡我們</h3>
+        <p>台北市中山區喵喵路67號<br>(09) 6767-676<br>IG @brew.u.coffee<br>營業時間 11:00–19:00</p>
+      </div>
+    </div>
+    <p class="footer-note">© 2026 Brew U. 品牌提案示意網站，非正式營運資訊。</p>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
