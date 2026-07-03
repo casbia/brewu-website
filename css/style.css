@@ -636,6 +636,22 @@ section { padding: 56px 0; }
 .merch-price-old { text-decoration: line-through; opacity: 0.5; font-size: 0.85rem; }
 .merch-price-now { font-family: 'Baloo 2', 'Chiron Sans HK', sans-serif; font-weight: 800; color: var(--blue); font-size: 1.2rem; }
 
+.merch-card.coming-soon {
+  border-style: dashed;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  opacity: 0.75;
+}
+.merch-card.coming-soon .img-frame {
+  background: var(--cream-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+}
+.merch-card.coming-soon .merch-name { margin-top: 8px; }
+
 .merch-form {
   background: #fff;
   border: var(--border-hand);
