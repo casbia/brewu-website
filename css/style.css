@@ -1,4 +1,28 @@
-@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Chiron+GoRound+TC:wght@600;700;800&family=Poppins:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap');
+
+/* 中文圓體字型改為自行 host（避免依賴 Google Fonts CDN 載入 Chiron GoRound TC 失敗的狀況）
+   字型檔案已用實際網站文字做過子集化，體積很小（約 135KB／字重） */
+@font-face {
+  font-family: 'Chiron GoRound TC';
+  src: url('../fonts/ChironGoRoundTC-600SB.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Chiron GoRound TC';
+  src: url('../fonts/ChironGoRoundTC-700B.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Chiron GoRound TC';
+  src: url('../fonts/ChironGoRoundTC-800EB.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
   --cream: #f9edd2;
